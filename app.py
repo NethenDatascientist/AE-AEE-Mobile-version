@@ -2099,7 +2099,7 @@ else:
                 "⚖️ Min. Works for Ranking:",
                 min_value=1,
                 max_value=50,
-                value=5,
+                value=1,
                 key="mob_lb_min_works",
             )
         with c_top2:
