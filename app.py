@@ -25,6 +25,14 @@ st.set_page_config(
     initial_sidebar_state="collapsed",
 )
 
+if "mob_active_page" not in st.session_state:
+    st.session_state["mob_active_page"] = "dashboard"
+
+
+def _switch_mob_page(target_page: str):
+    st.session_state["mob_active_page"] = target_page
+
+
 st.markdown(
     """
     <style>
@@ -458,6 +466,164 @@ st.markdown(
             color: #FCA5A5;
         }
 
+        /* 8. Matte Mobile Navigation Button */
+        div[data-testid="stButton"] > button {
+            background: linear-gradient(180deg, rgba(30, 41, 59, 0.94) 0%, rgba(15, 23, 42, 0.98) 100%) !important;
+            border: 1px solid rgba(59, 130, 246, 0.45) !important;
+            border-top: 1px solid rgba(147, 197, 253, 0.5) !important;
+            border-radius: 10px !important;
+            color: #F8FAFC !important;
+            font-weight: 700 !important;
+            font-size: 0.84rem !important;
+            min-height: 40px !important;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25) !important;
+        }
+
+        /* 9. Mobile Portrait Executive Leaderboard Panels */
+        .exec-lb-panel {
+            background: linear-gradient(160deg, rgba(30, 41, 59, 0.65), rgba(15, 23, 42, 0.95));
+            border: 1px solid rgba(148, 163, 184, 0.20);
+            border-radius: 12px;
+            padding: 12px 12px;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+        }
+        .exec-lb-panel-danger {
+            border-top: 3.5px solid #EF4444;
+        }
+        .exec-lb-panel-success {
+            border-top: 3.5px solid #10B981;
+        }
+        .exec-lb-header {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-bottom: 10px;
+            padding-bottom: 7px;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+        }
+        .exec-lb-title {
+            font-size: 0.90rem;
+            font-weight: 800;
+            color: #F8FAFC;
+            line-height: 1.25;
+        }
+        .exec-lb-sub {
+            font-size: 0.69rem;
+            font-weight: 600;
+            color: #94A3B8;
+        }
+        .exec-lb-row {
+            background: rgba(15, 23, 42, 0.68);
+            border: 1px solid rgba(148, 163, 184, 0.14);
+            border-radius: 9px;
+            padding: 8px 10px;
+            margin-bottom: 7px;
+        }
+        .exec-lb-row-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 6px;
+            margin-bottom: 5px;
+        }
+        .exec-lb-officer-wrap {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 5px;
+            min-width: 0;
+        }
+        .exec-lb-rank {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 24px;
+            height: 20px;
+            border-radius: 5px;
+            font-size: 0.70rem;
+            font-weight: 800;
+            background: rgba(59, 130, 246, 0.18);
+            color: #93C5FD;
+            border: 1px solid rgba(59, 130, 246, 0.35);
+            flex-shrink: 0;
+        }
+        .exec-lb-name {
+            font-size: 0.83rem;
+            font-weight: 700;
+            color: #F8FAFC;
+            word-break: break-word;
+        }
+        .exec-lb-div-tag {
+            font-size: 0.66rem;
+            font-weight: 600;
+            color: #94A3B8;
+            background: rgba(148, 163, 184, 0.12);
+            padding: 1px 6px;
+            border-radius: 5px;
+            white-space: nowrap;
+        }
+        .exec-lb-badges {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 4px;
+            flex-shrink: 0;
+        }
+        .exec-pill-danger {
+            background: rgba(239, 68, 68, 0.18);
+            color: #FCA5A5;
+            border: 1px solid rgba(239, 68, 68, 0.42);
+            padding: 2px 7px;
+            border-radius: 999px;
+            font-weight: 800;
+            font-size: 0.71rem;
+            white-space: nowrap;
+        }
+        .exec-pill-success {
+            background: rgba(16, 185, 129, 0.18);
+            color: #6EE7B7;
+            border: 1px solid rgba(16, 185, 129, 0.42);
+            padding: 2px 7px;
+            border-radius: 999px;
+            font-weight: 800;
+            font-size: 0.71rem;
+            white-space: nowrap;
+        }
+        .exec-pill-ets {
+            background: rgba(245, 158, 11, 0.16);
+            color: #FCD34D;
+            border: 1px solid rgba(245, 158, 11, 0.35);
+            padding: 2px 6px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 0.68rem;
+            white-space: nowrap;
+        }
+        .exec-pill-total {
+            color: #38BDF8;
+            font-weight: 700;
+            font-size: 0.70rem;
+            white-space: nowrap;
+        }
+        .exec-lb-bar-bg {
+            width: 100%;
+            height: 5px;
+            background: rgba(148, 163, 184, 0.16);
+            border-radius: 999px;
+            overflow: hidden;
+            display: flex;
+        }
+        .exec-lb-bar-od {
+            background: linear-gradient(90deg, #EF4444, #F87171);
+            height: 100%;
+        }
+        .exec-lb-bar-ets {
+            background: linear-gradient(90deg, #10B981, #34D399);
+            height: 100%;
+        }
+
         hr {
             margin-top: 0.5rem !important;
             margin-bottom: 0.55rem !important;
@@ -623,7 +789,7 @@ def calc_overdue_duration(target_date_obj, current_date_obj) -> str:
 
     y = current_date_obj.year - target_date_obj.year
     m = current_date_obj.month - target_date_obj.month
-    d = current_date_obj.day - target_date_obj.day + 1  # Include today
+    d = current_date_obj.day - target_date_obj.day + 1
 
     if d <= 0:
         m -= 1
@@ -1054,7 +1220,7 @@ def classify_overdue_age_bucket(target_str: str, today_dt: date) -> str:
 
 
 # -----------------------------------------------------------------------------
-# MOBILE RENDERERS: 1) SCORECARDS & 2) DOSSIER CARDS
+# MOBILE RENDERERS: 1) SCORECARDS, 2) DOSSIER CARDS, 3) LEADERBOARDS
 # -----------------------------------------------------------------------------
 def render_mobile_officer_scorecards(df_source: pd.DataFrame, officer_col: str) -> str:
     cards_html = []
@@ -1153,6 +1319,209 @@ def render_mobile_work_dossier_cards(
         cards_html.append(card_html)
 
     return f'<div class="work-cards-wrapper">{"".join(cards_html)}</div>'
+
+
+def build_officer_analytics_df(
+    df_scope: pd.DataFrame, col_key: str, label_name: str
+) -> pd.DataFrame:
+    """Aggregates performance for any officer cadre (AE, AEE, TA, or AS)."""
+    sub = df_scope[
+        (df_scope[col_key] != "")
+        & (df_scope[col_key] != UNASSIGNED_LABEL)
+        & (df_scope[col_key] != UNSPECIFIED_LABEL)
+    ].copy()
+    if sub.empty:
+        return pd.DataFrame()
+
+    grp = (
+        sub.groupby(col_key, as_index=False)
+        .agg(
+            total_works=("is_overdue", "count"),
+            ongoing_p_works=("is_status_p", "sum"),
+            ets_works=("is_status_ets", "sum"),
+            overdue_works=("is_overdue", "sum"),
+            primary_div=(
+                "division_name",
+                lambda s: s.mode().iloc[0] if not s.mode().empty else "-",
+            ),
+        )
+        .rename(columns={col_key: label_name})
+    )
+
+    grp["overdue_pct"] = (
+        (grp["overdue_works"] / grp["total_works"]) * 100
+    ).round(1).fillna(0.0)
+    return grp
+
+
+def render_mobile_leaderboard_panel(
+    df_slice: pd.DataFrame,
+    officer_col: str,
+    title_text: str,
+    subtitle_text: str,
+    is_danger: bool = True,
+    primary_metric: str = "count",
+) -> str:
+    """Renders a portrait-optimized leaderboard panel for mobile screens."""
+    panel_cls = "exec-lb-panel-danger" if is_danger else "exec-lb-panel-success"
+    pill_cls = "exec-pill-danger" if is_danger else "exec-pill-success"
+
+    if df_slice.empty:
+        return (
+            f'<div class="exec-lb-panel {panel_cls}">'
+            f'<div class="exec-lb-header">'
+            f'<span class="exec-lb-title">{html.escape(title_text)}</span>'
+            f'<span class="exec-lb-sub">{html.escape(subtitle_text)}</span>'
+            f"</div>"
+            f'<div style="color:#94A3B8;font-size:0.78rem;padding:6px 0;">'
+            f"No officers with overdue works match the current filter criteria."
+            f"</div></div>"
+        )
+
+    max_od = max(int(df_slice["overdue_works"].max()), 1)
+    rows_html = []
+
+    for rank_idx, (_, r) in enumerate(df_slice.iterrows(), start=1):
+        off_name = html.escape(str(r[officer_col]))
+        div_name = html.escape(str(r.get("primary_div", "-")))
+        od_cnt = int(r["overdue_works"])
+        od_pct = float(r["overdue_pct"])
+        ets_cnt = int(r["ets_works"])
+        tot_cnt = max(int(r["total_works"]), 1)
+
+        if primary_metric == "pct":
+            main_badge = f'<span class="{pill_cls}">{od_pct:.1f}% ({od_cnt} OD)</span>'
+            od_bar_w = min(100.0, max(2.0 if od_cnt > 0 else 0.0, od_pct))
+        else:
+            main_badge = f'<span class="{pill_cls}">{od_cnt} OD ({od_pct:.1f}%)</span>'
+            od_bar_w = (
+                min(100.0, max(4.0, (od_cnt / max_od) * 100.0))
+                if is_danger and od_cnt > 0
+                else min(100.0, (od_cnt / tot_cnt) * 100.0)
+            )
+
+        ets_bar_w = min(100.0 - od_bar_w, (ets_cnt / tot_cnt) * 100.0)
+        ets_badge = (
+            f'<span class="exec-pill-ets">{ets_cnt} ETS</span>'
+            if ets_cnt > 0
+            else '<span style="color:#64748B;font-size:0.68rem;">0 ETS</span>'
+        )
+
+        rows_html.append(
+            f'<div class="exec-lb-row">'
+            f'<div class="exec-lb-row-top">'
+            f'<div class="exec-lb-officer-wrap">'
+            f'<span class="exec-lb-rank">#{rank_idx}</span>'
+            f'<span class="exec-lb-name">{off_name}</span>'
+            f'<span class="exec-lb-div-tag">🏛️ {div_name}</span>'
+            f"</div>"
+            f'<div class="exec-lb-badges">'
+            f"{main_badge}{ets_badge}"
+            f'<span class="exec-pill-total">{tot_cnt} Total</span>'
+            f"</div></div>"
+            f'<div class="exec-lb-bar-bg">'
+            f'<div class="exec-lb-bar-od" style="width:{od_bar_w:.1f}%;"></div>'
+            f'<div class="exec-lb-bar-ets" style="width:{ets_bar_w:.1f}%;"></div>'
+            f"</div></div>"
+        )
+
+    return (
+        f'<div class="exec-lb-panel {panel_cls}">'
+        f'<div class="exec-lb-header">'
+        f'<span class="exec-lb-title">{html.escape(title_text)}</span>'
+        f'<span class="exec-lb-sub">{html.escape(subtitle_text)}</span>'
+        f"</div>"
+        f'{"".join(rows_html)}'
+        f"</div>"
+    )
+
+
+def render_cadre_leaderboards_mobile(
+    stats_df: pd.DataFrame,
+    cadre_label: str,
+    short_plural: str,
+    top_n: int,
+    min_works: int,
+):
+    """Computes and renders Highest & Least Overdue (By Count & By %) for a cadre."""
+    if stats_df.empty:
+        st.info(f"No {cadre_label} data found in the current filter scope.")
+        return
+
+    qual_df = stats_df[stats_df["total_works"] >= min_works].copy()
+    if qual_df.empty:
+        qual_df = stats_df.copy()
+
+    # Highest Overdue (Count & Percentage)
+    high_cnt = stats_df.sort_values(
+        by=["overdue_works", "overdue_pct", "total_works"],
+        ascending=[False, False, False],
+    ).head(top_n)
+
+    high_pct = qual_df.sort_values(
+        by=["overdue_pct", "overdue_works", "total_works"],
+        ascending=[False, False, False],
+    ).head(top_n)
+
+    # Least Overdue — Strictly only officers who HAVE overdue works (overdue_works > 0)
+    least_pool = qual_df[qual_df["overdue_works"] > 0].copy()
+    if least_pool.empty:
+        least_pool = stats_df[stats_df["overdue_works"] > 0].copy()
+
+    least_cnt = least_pool.sort_values(
+        by=["overdue_works", "overdue_pct", "total_works"],
+        ascending=[True, True, False],
+    ).head(top_n)
+
+    least_pct = least_pool.sort_values(
+        by=["overdue_pct", "overdue_works", "total_works"],
+        ascending=[True, True, False],
+    ).head(top_n)
+
+    st.markdown(
+        render_mobile_leaderboard_panel(
+            high_cnt,
+            cadre_label,
+            f"🔴 Top {top_n} {short_plural} — Highest Overdue (By Count)",
+            "Ranked by highest overdue works count",
+            is_danger=True,
+            primary_metric="count",
+        ),
+        unsafe_allow_html=True,
+    )
+    st.markdown(
+        render_mobile_leaderboard_panel(
+            high_pct,
+            cadre_label,
+            f"🔴 Top {top_n} {short_plural} — Highest Overdue (By Percentage %)",
+            f"Min. {min_works} works assigned",
+            is_danger=True,
+            primary_metric="pct",
+        ),
+        unsafe_allow_html=True,
+    )
+    st.markdown(
+        render_mobile_leaderboard_panel(
+            least_cnt,
+            cadre_label,
+            f"🟢 Top {top_n} {short_plural} — Least Overdue (By Count)",
+            f"Among officers with Overdue > 0 • Min. {min_works} works • Ties broken by highest workload",
+            is_danger=False,
+            primary_metric="count",
+        ),
+        unsafe_allow_html=True,
+    )
+    st.markdown(
+        render_mobile_leaderboard_panel(
+            least_pct,
+            cadre_label,
+            f"🟢 Top {top_n} {short_plural} — Least Overdue (By Percentage %)",
+            f"Among officers with Overdue > 0 • Min. {min_works} works • Ties broken by highest workload",
+            is_danger=False,
+            primary_metric="pct",
+        ),
+        unsafe_allow_html=True,
+    )
 
 
 def parse_xlsx_workbook(workbook_bytes: bytes):
@@ -1523,17 +1892,28 @@ show_unassigned_bar = st.sidebar.checkbox(
 )
 
 # -----------------------------------------------------------------------------
-# MOBILE HEADER (STRICTLY 1 LINE, STEPPED UP 1 SIZE) & DATA LOAD
+# MOBILE HEADER (STRICTLY 1 LINE) & DATA LOAD
 # -----------------------------------------------------------------------------
-st.markdown(
-    """
-    <div class="premium-compact-header">
-        <div class="premium-icon-wrapper">📊</div>
-        <div class="premium-compact-title">Minor Irrigation — Overdue Works Dashboard</div>
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
+if st.session_state["mob_active_page"] == "dashboard":
+    st.markdown(
+        """
+        <div class="premium-compact-header">
+            <div class="premium-icon-wrapper">📊</div>
+            <div class="premium-compact-title">Minor Irrigation — Overdue Works Dashboard</div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+else:
+    st.markdown(
+        """
+        <div class="premium-compact-header">
+            <div class="premium-icon-wrapper">🏆</div>
+            <div class="premium-compact-title">Minor Irrigation — Executive Leaderboards</div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
 shared_state = get_shared_state_v18_mob()
 
@@ -1596,7 +1976,7 @@ if master_df.empty:
     st.stop()
 
 # -----------------------------------------------------------------------------
-# TOUCH-FRIENDLY TOP FILTER CARDS (5 CASCADING DROPDOWNS + VIEW & SORT)
+# TOUCH-FRIENDLY TOP FILTER CARDS (5 CASCADING DROPDOWNS)
 # -----------------------------------------------------------------------------
 unique_divisions = sorted(
     [d for d in master_df["division_name"].dropna().unique().tolist() if d != ""]
@@ -1674,6 +2054,111 @@ filtered_master_df = (
     else df_step4.copy()
 )
 
+# -----------------------------------------------------------------------------
+# PAGE NAVIGATION BUTTON & ANALYTICS PAGE (EXECUTIVE LEADERBOARDS ONLY)
+# -----------------------------------------------------------------------------
+if st.session_state["mob_active_page"] == "dashboard":
+    st.button(
+        "📊 Analytics — Executive Leaderboards ➔",
+        use_container_width=True,
+        key="mob_btn_to_analytics",
+        on_click=_switch_mob_page,
+        args=("analytics",),
+    )
+else:
+    st.button(
+        "⬅️ Back to Main Overdue Works Dashboard",
+        use_container_width=True,
+        key="mob_btn_to_dashboard",
+        on_click=_switch_mob_page,
+        args=("dashboard",),
+    )
+
+    an_scope_df = filtered_master_df.copy()
+    if denominator_mode.startswith("Only Ongoing Works"):
+        an_scope_df = an_scope_df[an_scope_df["is_status_p"]].copy()
+
+    if an_scope_df.empty:
+        st.warning("No works found matching the selected filters.")
+        disable_mobile_select_keyboard()
+        st.stop()
+
+    active_scope_parts = [
+        f"{LABEL_DIV_EN}: {selected_division}",
+        f"{LABEL_SUBDIV_EN}: {selected_subdivision}",
+        f"EE: {selected_ee}",
+        f"TA: {selected_ta}",
+        f"AS: {selected_as}",
+    ]
+    filter_scope_label = " | ".join(active_scope_parts)
+
+    with st.container(border=True):
+        c_top1, c_top2 = st.columns([1.15, 0.85], gap="small")
+        with c_top1:
+            min_works_threshold = st.slider(
+                "⚖️ Min. Works for Ranking:",
+                min_value=1,
+                max_value=50,
+                value=5,
+                key="mob_lb_min_works",
+            )
+        with c_top2:
+            top_n_count = st.radio(
+                "🔢 Leaderboard Depth:",
+                options=[5, 10],
+                format_func=lambda x: f"Top {x}",
+                horizontal=True,
+                index=0,
+                key="mob_lb_depth",
+            )
+
+        cadre_choice = st.radio(
+            "👥 Select Officer Cadre:",
+            options=[
+                LABEL_AE_EN,
+                LABEL_AEE_EN,
+                LABEL_TA_EN,
+                LABEL_AS_EN,
+            ],
+            horizontal=True,
+            key="mob_lb_cadre_radio",
+        )
+
+    st.markdown(
+        f"""
+        <div class="exec-section-banner">
+            <div class="exec-section-title">🏆 Executive Leaderboards — Highest &amp; Least Overdue ({html.escape(cadre_choice)})</div>
+            <div class="exec-scope-badge">{html.escape(filter_scope_label)}</div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    cadre_map = {
+        LABEL_AE_EN: ("so_name", "AEs"),
+        LABEL_AEE_EN: ("aee_name", "AEEs"),
+        LABEL_TA_EN: ("ta_name", "TAs"),
+        LABEL_AS_EN: ("as_name", "Account Supts."),
+    }
+    col_key_lb, short_plural_lb = cadre_map[cadre_choice]
+    stats_lb_df = build_officer_analytics_df(
+        an_scope_df, col_key_lb, cadre_choice
+    )
+
+    render_cadre_leaderboards_mobile(
+        stats_df=stats_lb_df,
+        cadre_label=cadre_choice,
+        short_plural=short_plural_lb,
+        top_n=top_n_count,
+        min_works=min_works_threshold,
+    )
+
+    disable_mobile_select_keyboard()
+    st.stop()
+
+# -----------------------------------------------------------------------------
+# MAIN DASHBOARD CONTROLS & VIEW
+# -----------------------------------------------------------------------------
 with st.container(border=True):
     view_choice = st.radio(
         "👤 Select Officer View:",
